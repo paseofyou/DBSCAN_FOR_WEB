@@ -3,6 +3,13 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/Screenshots/www.baidu.com_2024_07_17_23_51_57" />
+      <excludeFolder url="file://$MODULE_DIR$/Screenshots/www.istockphoto.com_2024_07_17_23_53_36" />
+      <excludeFolder url="file://$MODULE_DIR$/Screenshots/www.istockphoto.com_2024_07_18_00_14_15" />
+      <excludeFolder url="file://$MODULE_DIR$/Screenshots/www.istockphoto.com_2024_07_18_00_14_31" />
+      <excludeFolder url="file://$MODULE_DIR$/Screenshots/www.istockphoto.com_2024_07_18_00_14_47" />
+      <excludeFolder url="file://$MODULE_DIR$/Screenshots/www.istockphoto.com_2024_07_18_00_16_14" />
+      <excludeFolder url="file://$MODULE_DIR$/Screenshots/www.istockphoto.com_2024_07_18_00_19_48" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
