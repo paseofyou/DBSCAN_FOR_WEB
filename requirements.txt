@@ -1,0 +1,10 @@
+numpy
+selenium
+pyqt5
+pillow
+scikit-learn
+htmldiff
+genshi
+html5lib
+beautifulsoup4
+difflib

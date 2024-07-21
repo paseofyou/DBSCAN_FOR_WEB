@@ -1,0 +1,2 @@
+class GlobalVar:
+    global a
