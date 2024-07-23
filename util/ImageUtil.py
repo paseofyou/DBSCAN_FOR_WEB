@@ -27,7 +27,7 @@ class ImageUtil:
     def saveImage(driver, file_name):
         default_width = 1920
         default_height = 1080
-        time.sleep(5)
+        # time.sleep(5)
         total_height = driver.execute_script("return document.body.scrollHeight")
         if total_height is None:
             total_height = default_height

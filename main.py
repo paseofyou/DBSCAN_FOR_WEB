@@ -10,14 +10,14 @@ from util.ImageUtil import ImageUtil
 
 
 def main():
-    # crawler = Crawler("https://www.aliyun.com")
-    # crawler.saveImageAndHtml()
-    # domAnalyze = DomAnalyze(crawler)
-    # domAnalyze.toDomJSON()
-
-    domAnalyze = DomAnalyze(None)
-    dom_list = domAnalyze.service()
-    ImageUtil.drawImage(r"www.aliyun.com_24_01_07_14/www.aliyun.com.png", dom_list)
+    crawler = Crawler("https://www.aliyun.com")
+    crawler.saveImageAndHtml()
+    domAnalyze = DomAnalyze(crawler)
+    domAnalyze.toDomJSON()
+    #
+    # domAnalyze = DomAnalyze(None)
+    # dom_list = domAnalyze.service()
+    # ImageUtil.drawImage(r"www.aliyun.com_24_01_07_14/www.aliyun.com.png", dom_list)
     # DomFilter.dividable()
     #
     # # 提取框选框的中心点坐标

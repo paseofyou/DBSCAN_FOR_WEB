@@ -56,6 +56,7 @@ class Crawler:
             if scroll_position >= total_height:
                 num += 1
         self.driver.execute_script(f"window.scrollBy(0, 0)")
+        time.sleep(2)
 
         # 生成soup
         self.soup = BeautifulSoup(self.driver.page_source, "html.parser")
