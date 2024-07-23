@@ -7,4 +7,5 @@ htmldiff
 genshi
 html5lib
 beautifulsoup4
-difflib
+matplotlib
+opencv-python
