@@ -1,6 +1,6 @@
 import json
 
-from analyze.node import Node
+from model.node import Node
 from common.config import Config
 
 
@@ -21,15 +21,16 @@ class DomAnalyze:
     def toDomJSON(self):
         with open("analyze/to_node.js", "r", encoding="utf-8") as f:
             elements_info = self.crawler.driver.execute_script(f.read() + "\nreturn JSON.stringify(main());")
-            if (elements_info == None):
+            if (elements_info is None):
                 print("获取dom_json元素信息失败")
                 return
             with open(Config.path + "/" + self.crawler.file_path + "toNode.json", "w", encoding="utf-8") as f2:
                 f2.write(elements_info)
 
+    # 从内存加载到项目中
     def loadDomTree(self):
         # with open(self.crawler.file_path + "toNode.json", "r", encoding="utf-8") as f:
-        with open(r"result/www.aliyun.com_23_09_39_31/" + "toNode.json", "r",
+        with open(r"result/www.aliyun.com_24_01_07_14/" + "toNode.json", "r",
                   encoding="utf-8") as f:
             json_list = json.loads(f.read())
             for obj in json_list:

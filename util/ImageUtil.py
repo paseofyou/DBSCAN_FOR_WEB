@@ -16,7 +16,7 @@ class ImageUtil:
         img = image.copy()
         # 绘制非噪声点的框选框
         for i, element in enumerate(node_list):
-            if labels[i] != -1 and element.block_visual:
+            if labels[i] != -1 and element.block.block_visual:
                 x, y, width, height = int(element.x), int(element.y), int(element.width), int(
                     element.height)
                 cv2.rectangle(img, (x, y), (x + width, y + height), (0, 0, 255), 2)

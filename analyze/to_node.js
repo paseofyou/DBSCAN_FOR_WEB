@@ -1,18 +1,27 @@
 let elements = [];
 // let element_one = null
+
+// 树先序遍历，保证dom顺序，此处算法顺序与dom顺序一致
 function toJSON(element) {
     if (element === null) return;
-    if (element.nodeType !== 1) return;
+    if (element.nodeType !== 1 && element.nodeType !== 3) return;
+    let tagName = element.tagName === undefined ? element.nodeName : element.tagName.toLowerCase();
     // console.log(element)
     // element_one = element
-    // if (element.nodeType === 3 && isEmpty(element.nodeValue)) return;
+    if (element.nodeType === 3) {
+        if (isEmpty(element.nodeValue)) {
+            return;
+        } else {
+            return getItem(element);
+        }
+    }
+    if (tagName === 'hr' || tagName === 'br') return getItem(element);
     let rect = element.getBoundingClientRect();
     let style = window.getComputedStyle(element);
-    let tagName = element.tagName.toLowerCase();
     // 初始化过滤---特殊无用标签
     if (style.getPropertyValue("visibility") === 'hidden' || style.getPropertyValue("display") === 'none') return;
     if (tagName === 'html' || tagName === 'script' || tagName === 'noscript' || tagName === 'style') return;
-    if (tagName === 'hr' || tagName === 'br') return;
+    // 初始化有效节点
     if (rect.width > 0 && rect.height > 0) {
         let childNodes = [];
         if (element.childNodes !== null) {
@@ -33,12 +42,27 @@ function toJSON(element) {
             'childNodes': childNodes,
             'display': style.getPropertyValue("display"),
             'visibility': style.getPropertyValue("visibility"),
+            "background-color": style.getPropertyValue("background-color"),
             'text': element.innerText,
             'nodeType': element.nodeType,
-            // 'parentNode': element.parentNode.tagName.toLowerCase(),
+            "font_size": style.getPropertyValue("font-size"),
+            "font_weight": style.getPropertyValue("font-weight"),
         };
         elements.push(item);
         return item;
+    }
+}
+
+function getItem(element) {
+    let tagName = element.tagName === undefined ? element.nodeName : element.tagName.toLowerCase();
+    return {
+        'tag': tagName,
+        'x': 0,
+        'y': 0,
+        'width': 0,
+        'height': 0,
+        'text': element.innerText,
+        'nodeType': element.nodeType
     }
 }
 
@@ -48,7 +72,8 @@ function isEmpty(obj) {
 }
 
 function main() {
-    let directChildren = document.body.children;
+    // let directChildren = document.querySelector("#\\31 f14236eceda61e3b4b078635a448bed > div:nth-child(2) > div:nth-child(4) > div > div").childNodes;
+    let directChildren = document.body.childNodes;
     for (let i = 0; i < directChildren.length; i++) {
         toJSON(directChildren[i]);
     }
