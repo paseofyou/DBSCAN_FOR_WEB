@@ -9,4 +9,3 @@ html5lib
 beautifulsoup4
 matplotlib
 opencv-python
-pyvips

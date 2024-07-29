@@ -8,7 +8,7 @@ from common.config import Config
 class ImageUtil:
     @staticmethod
     def drawImage(img_path, node_list, name="raw_draw", labels=None):
-        img_path = Config.path + "/" + img_path
+        img_path = Config.result_path + "/" + img_path + ".png"
         if labels is None:
             labels = [1 for i in range(len(node_list))]
         # 读取截图
@@ -24,12 +24,15 @@ class ImageUtil:
         cv2.imwrite(img_path.replace(_img_name, name + ".png"), img)
 
     @staticmethod
-    def saveImage(driver, file_name):
+    def saveImage(driver, file_name, width, height):
         default_width = 1920
         default_height = 1080
-        # time.sleep(5)
         total_height = driver.execute_script("return document.body.scrollHeight")
-        if total_height is None:
-            total_height = default_height
-        driver.set_window_size(default_width, total_height)
-        driver.save_screenshot(Config.path + "/" + file_name + '.png')
+        if height is None:
+            height = total_height
+            if height is None:
+                height = default_height
+        if width is None:
+            width = default_width
+        driver.set_window_size(width, height)
+        driver.save_screenshot(Config.result_path + "/" + file_name + '.png')

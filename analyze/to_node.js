@@ -2,7 +2,7 @@ let elements = [];
 // let element_one = null
 
 // 树先序遍历，保证dom顺序，此处算法顺序与dom顺序一致
-function toJSON(element) {
+function toJSON(element, rect_parent = null) {
     if (element === null) return;
     if (element.nodeType !== 1 && element.nodeType !== 3) return;
     let tagName = element.tagName === undefined ? element.nodeName : element.tagName.toLowerCase();
@@ -12,7 +12,14 @@ function toJSON(element) {
         if (isEmpty(element.nodeValue)) {
             return;
         } else {
-            return getItem(element);
+            let text = getItem(element);
+            if (rect_parent !== null) {
+                text.x = rect_parent.left;
+                text.y = rect_parent.top;
+                text.width = rect_parent.width;
+                text.height = rect_parent.height;
+            }
+            return text;
         }
     }
     if (tagName === 'hr' || tagName === 'br') return getItem(element);
@@ -20,14 +27,14 @@ function toJSON(element) {
     let style = window.getComputedStyle(element);
     // 初始化过滤---特殊无用标签
     if (style.getPropertyValue("visibility") === 'hidden' || style.getPropertyValue("display") === 'none') return;
-    if (tagName === 'html' || tagName === 'script' || tagName === 'noscript' || tagName === 'style') return;
+    if (tagName === 'script' || tagName === 'noscript' || tagName === 'style') return;
     // 初始化有效节点
     if (rect.width > 0 && rect.height > 0) {
         let childNodes = [];
         if (element.childNodes !== null) {
             let length = element.childNodes.length;
             for (let i = 0; i < length; i++) {
-                let it = toJSON(element.childNodes[i]);
+                let it = toJSON(element.childNodes[i], rect);
                 if (it !== undefined && it !== null) {
                     childNodes.push(it);
                 }
@@ -42,7 +49,7 @@ function toJSON(element) {
             'childNodes': childNodes,
             'display': style.getPropertyValue("display"),
             'visibility': style.getPropertyValue("visibility"),
-            "background-color": style.getPropertyValue("background-color"),
+            "background_color": style.getPropertyValue("background-color"),
             'text': element.innerText,
             'nodeType': element.nodeType,
             "font_size": style.getPropertyValue("font-size"),
@@ -72,10 +79,7 @@ function isEmpty(obj) {
 }
 
 function main() {
-    // let directChildren = document.querySelector("#\\31 f14236eceda61e3b4b078635a448bed > div:nth-child(2) > div:nth-child(4) > div > div").childNodes;
-    let directChildren = document.body.childNodes;
-    for (let i = 0; i < directChildren.length; i++) {
-        toJSON(directChildren[i]);
-    }
+    let body = document.getElementsByTagName("BODY")[0];
+    elements.unshift(toJSON(body));
     return elements;
 }

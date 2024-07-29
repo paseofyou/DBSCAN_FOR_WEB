@@ -13,7 +13,7 @@ class DomAnalyze:
     # 构造dom树，并将其dom平面列表存入domTreeList列表中
     def service(self):
         print("dom树构造中...")
-        # self.toDomJSON()
+        self.toDomJSON()
         self.loadDomTree()
         self.loadDomAllList()
         return self.getDomTreeList()
@@ -24,14 +24,15 @@ class DomAnalyze:
             if (elements_info is None):
                 print("获取dom_json元素信息失败")
                 return
-            with open(Config.path + "/" + self.crawler.file_path + "toNode.json", "w", encoding="utf-8") as f2:
+            with open(Config.result_path + "/" + self.crawler.file_path + "toNode.json", "w", encoding="utf-8") as f2:
                 f2.write(elements_info)
 
     # 从内存加载到项目中
     def loadDomTree(self):
-        # with open(self.crawler.file_path + "toNode.json", "r", encoding="utf-8") as f:
-        with open(r"result/www.aliyun.com_24_01_07_14/" + "toNode.json", "r",
+        with open(Config.result_path + "/" + self.crawler.file_path + "toNode.json", "r",
                   encoding="utf-8") as f:
+            # with open("result" + r"/" + Config.test + "/" + "toNode.json", "r",
+            #           encoding="utf-8") as f:
             json_list = json.loads(f.read())
             for obj in json_list:
                 try:
@@ -66,3 +67,6 @@ class DomAnalyze:
 
     def getDomTreeList(self):
         return self.domTreeList
+
+    def getDomAllList(self):
+        return self.domAllList

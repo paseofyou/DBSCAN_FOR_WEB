@@ -1,6 +1,6 @@
 class Block:
     __slots__ = (
-        'id', 'block_visual', 'block_divide', "block_dividable")
+        'id', 'block_visual', 'block_divide', "block_dividable","Doc")
     clac_count = 0
 
     def __init__(self):
@@ -10,6 +10,4 @@ class Block:
         self.block_dividable = True
         self.block_divide = False
         self.block_visual = True
-
-    def __str__(self):
-        return f"Block(id={self.id}, block_visual={self.block_visual}, block_divide={self.block_divide}, block_dividable={self.block_dividable}, node={self.node})"
+        self.Doc = 0

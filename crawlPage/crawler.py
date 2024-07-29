@@ -18,6 +18,8 @@ class Crawler:
     file_path = None
     driver = None
     soup = None
+    window_width = None
+    window_height = None
 
     def __init__(self, url: str = None):
         print("爬虫资源加载中...")
@@ -55,9 +57,13 @@ class Crawler:
             total_height = self.driver.execute_script("return document.body.scrollHeight")
             if scroll_position >= total_height:
                 num += 1
-        self.driver.execute_script(f"window.scrollBy(0, 0)")
+        self.driver.execute_script(f"document.documentElement.scrollTop=0")
+        # self.driver.set_window_size(width=default_width, height=total_height, windowHandle="current")
         time.sleep(2)
+        self.window_width = default_width
+        self.window_height = total_height
 
+        self.driver.set_window_size(self.window_width, self.window_height)
         # 生成soup
         self.soup = BeautifulSoup(self.driver.page_source, "html.parser")
         print("爬虫资源加载完毕")
@@ -73,13 +79,13 @@ class Crawler:
             self.file_path = parse_object.netloc + '_' + str(
                 datetime.now().strftime('%d_%H_%M_%S')) + '/'
             self.filename = parse_object.netloc
-            os.makedirs(Config.path + "/" + self.file_path)
+            os.makedirs(Config.result_path + "/" + self.file_path)
         except (TypeError, AttributeError):
             print("url无效: " + str(urlStr))
             return
 
     def saveImageAndHtml(self):
         print("初始图像及源码输出中...")
-        ImageUtil.saveImage(self.driver, self.file_path + self.filename)
-        with open(Config.path + "/" + self.file_path + "source.html", "w", encoding="utf-8") as f:
+        ImageUtil.saveImage(self.driver, self.file_path + self.filename, self.window_width, self.window_height)
+        with open(Config.result_path + "/" + self.file_path + "source.html", "w", encoding="utf-8") as f:
             f.write(self.soup.prettify())
